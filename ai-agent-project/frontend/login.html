@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - BP Health Agent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Login</h1>
+    <div class="form-container">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="loginUser()">Login</button>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+
+    <script>
+        function loginUser() {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            const user = localStorage.getItem(email);
+            if (!user) {
+                alert("User not found! Please register first.");
+                return;
+            }
+
+            const parsedUser = JSON.parse(user);
+            if (parsedUser.password === password) {
+                localStorage.setItem("loggedInUser", email);
+                alert("Login successful!");
+                window.location.href = "index.html";
+            } else {
+                alert("Incorrect password!");
+            }
+        }
+    </script>
+</body>
+</html>
